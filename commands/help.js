@@ -12,7 +12,7 @@ module.exports = {
 		const { commands } = message.client
 
 		if (!args.length) {
-			data.push(`Это список всех команд Ренли: `)
+			data.push(`Это список всех команд Райви: `)
 			data.push(commands.map(command => command.name).join(', '))
 			data.push(
 				`\nМожно использовать \`${prefix}help [command name]\`, чтобы получить информацию о какой-то из команд`
@@ -21,11 +21,11 @@ module.exports = {
 			return message.author.send(data, { split: true })
 				.then(() => {
 					if (message.channel.type === 'dm') return
-					message.reply(`Чекай сообщения, комрад`)
+					message.reply(`Информация в личных сообщениях!`)
 				})
 				.catch(error => {
 					console.error(`Не могу помочь ${message.author.tag}\n`, error)
-					message.reply(`Кажется, я не могу тебе помочь...`)
+					message.reply(`Кажется, я не могу вам помочь`)
 				})
 		}
 
@@ -33,7 +33,7 @@ module.exports = {
 		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name))
 
 		if (!command) {
-			return message.reply(`Это не корректная команда!`)
+			return message.reply(`Некорректная комманда`)
 		}
 
 		data.push(`- Название: ${command.name}`)
