@@ -8,6 +8,7 @@ const setPlayer = message => {
 }
 
 const add = async (message, youtube) => {
+	setPlayer(message)
 	const voiceChannel = message.member.voice.channel
 
 	const songInfo = await ytdl.getInfo(youtube)
@@ -40,7 +41,7 @@ const add = async (message, youtube) => {
 		}
 	} else {
 		serverQueue.songs.push(song)
-		console.log(serverQueue.songs)
+		// console.log(serverQueue.songs)
 		return message.channel.send(`${song.title} добавлено в очередь!`)
 	}
 }
@@ -69,30 +70,36 @@ const play = (guild, song) => {
 }
 
 const skip = message => {
+	setPlayer(message)
 	if (!message.member.voice.channel) return message.channel.send(
 		'Вы должны находиться в голосовом канале')
 	if (!serverQueue) return message.channel.send(
 		'Нечего скипать...'
 	)
 
-	serverQueue.connection.dispatcher.end()
+	serverQueue.connection.dispatcher.resume()
 }
 
 const clear = message => {
+	setPlayer(message)
 	if (!message.member.voice.channel) return message.channel.send(
 		'Вы должны находиться в голосовом канале')
 	serverQueue.songs = []
-	serverQueue.connection.dispatcher.end()
+	serverQueue.connection.dispatcher.resume()
 }
 
 const showQueue = message => {
+	setPlayer(message)
+	let msg = 'Очередь прослушивания: '
+	serverQueue.songs.forEach(song => {
+		msg += `\n ${song.title} | ${Date.parse(song.length)}`
+	})
 	serverQueue ?
 	message.channel.send(
 		`Очередь прослушивания: 
-			${serverQueue}
+			${msg}
 		`
-	)
-		: message.channel.send('Нечего слушать...')
+	) : message.channel.send('Нечего слушать...')
 }
 
 module.exports = {
