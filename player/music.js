@@ -68,6 +68,33 @@ const play = (guild, song) => {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5)
 }
 
+const skip = message => {
+	if (!message.member.voice.channel) return message.channel.send(
+		'Вы должны находиться в голосовом канале')
+	if (!serverQueue) return message.channel.send(
+		'Нечего скипать...'
+	)
+
+	serverQueue.connection.dispatcher.end()
+}
+
+const clear = message => {
+	if (!message.member.voice.channel) return message.channel.send(
+		'Вы должны находиться в голосовом канале')
+	serverQueue.songs = []
+	serverQueue.connection.dispatcher.end()
+}
+
+const showQueue = message => {
+	serverQueue ?
+	message.channel.send(
+		`Очередь прослушивания: 
+			${serverQueue}
+		`
+	)
+		: message.channel.send('Нечего слушать...')
+}
+
 module.exports = {
-	setPlayer, add
+	setPlayer, add, skip, clear, showQueue
 }
