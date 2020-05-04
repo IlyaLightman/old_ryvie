@@ -16,5 +16,8 @@
     "config": "^3.3.1",
     "discord.js": "^12.2.0",
     "nodemon": "^2.0.3"
+  },
+  "devDependencies": {
+    "chalk": "^4.0.0"
   }
 }
