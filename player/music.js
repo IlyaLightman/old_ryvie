@@ -91,15 +91,20 @@ const clear = message => {
 const showQueue = message => {
 	setPlayer(message)
 	let msg = 'Очередь прослушивания: '
-	serverQueue.songs.forEach(song => {
-		msg += `\n ${song.title} | ${Date.parse(song.length)}`
+
+	if (!serverQueue) return message.channel.send('Нечего слушать...')
+
+	serverQueue.songs.forEach((song, index) => {
+		msg += `\n${index + 1}) [${normalizeSeconds(song.length)}]   ${song.title}`
 	})
-	serverQueue ?
-	message.channel.send(
-		`Очередь прослушивания: 
-			${msg}
-		`
-	) : message.channel.send('Нечего слушать...')
+	message.channel.send(msg)
+}
+
+const normalizeSeconds = seconds => {
+	const min = Math.floor(seconds / 60)
+	const sec = seconds - min * 60
+
+	return `${min}:${sec}`
 }
 
 module.exports = {
