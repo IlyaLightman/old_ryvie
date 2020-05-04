@@ -1,0 +1,20 @@
+{
+  "name": "ryvie",
+  "version": "1.0.0",
+  "description": "Powerful Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon \"node index\""
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "Ilya Zaytsev",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.1",
+    "discord.js": "^12.2.0",
+    "nodemon": "^2.0.3"
+  }
+}
