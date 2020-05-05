@@ -32,8 +32,10 @@ const add = async (message, youtube) => {
 		queueContract.songs.push(song)
 
 		try {
-			queueContract.connection = await voiceChannel.join()
-			play(message.guild, queueContract.songs[0])
+			if (!queueContract.connection) {
+				queueContract.connection = await voiceChannel.join()
+			}
+			playStream(message, queueContract.songs[0])
 		} catch (err) {
 			console.log(err)
 			queue.delete(message.guild.id)
@@ -46,11 +48,12 @@ const add = async (message, youtube) => {
 	}
 }
 
-const play = (guild, song) => {
+const playStream = (message, song) => {
+	const guild = message.guild
 	const serverQueue = queue.get(guild.id)
 
 	if (!song) {
-		serverQueue.voice.channel.leave()
+		serverQueue.voiceChannel.leave()
 		queue.delete(guild.id)
 		return
 	}
@@ -59,14 +62,17 @@ const play = (guild, song) => {
 		quality: 'highestaudio'
 	})
 		.on('end', () => {
-			console.log('The end.')
+			// console.log('The end')
 			serverQueue.songs.shift()
-			play(guild, serverQueue.songs[0])
+			playStream(message, serverQueue.songs[0])
 		})
 		.on('error', () => {
 			console.error()
 		})
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5)
+
+	const msg = `${song.title} is playing now`
+	message.channel.send(msg)
 }
 
 const skip = message => {
@@ -77,7 +83,7 @@ const skip = message => {
 		'Нечего скипать...'
 	)
 
-	serverQueue.connection.dispatcher.resume()
+	serverQueue.connection.dispatcher.emit('end')
 }
 
 const clear = message => {
@@ -85,7 +91,19 @@ const clear = message => {
 	if (!message.member.voice.channel) return message.channel.send(
 		'Вы должны находиться в голосовом канале')
 	serverQueue.songs = []
-	serverQueue.connection.dispatcher.resume()
+
+	serverQueue.connection.dispatcher.emit('end')
+}
+
+const play = (message, number) => {
+	setPlayer(message)
+
+	if (!serverQueue.songs[number]) return message.channel.send('В очереди нет такой песни')
+
+	// TODO Доделать
+
+	const setSong = serverQueue.songs[number]
+	playStream(message, setSong)
 }
 
 const showQueue = message => {
@@ -108,5 +126,5 @@ const normalizeSeconds = seconds => {
 }
 
 module.exports = {
-	setPlayer, add, skip, clear, showQueue
+	setPlayer, add, skip, clear, showQueue, play
 }
