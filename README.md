@@ -38,3 +38,8 @@ but only owner of the private playlist can add new songs in it.
 
 * **$roulette** <_chance (0 - 100%)_> - Bans you with the selected chance ($roulette 25)
 * **$roll** <_interval (x-y) / dice (XdY)_> - Rolls dices ($dice 2d20)
+
+---
+
+![Ryvie for Discord](https://i.ibb.co/DgHLfFx/bor-for-discord.png "Bot for Discord")
+
