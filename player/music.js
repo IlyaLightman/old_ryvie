@@ -100,9 +100,9 @@ const play = (message, number) => {
 
 	if (!serverQueue.songs[number]) return message.channel.send('В очереди нет такой песни')
 
-	// TODO Доделать
+	message.channel.send(`Выбранная песня: ${serverQueue.songs[number - 1].title}`)
 
-	const setSong = serverQueue.songs[number]
+	const setSong = serverQueue.songs[number - 1]
 	playStream(message, setSong)
 }
 

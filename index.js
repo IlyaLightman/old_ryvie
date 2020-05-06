@@ -4,7 +4,7 @@ const fs = require('fs')
 const chalk = require('chalk')
 
 const token = config.get('DISCORD_TOKEN')
-const prefix = config.get('prefix') // &
+const prefix = config.get('prefix') // $
 const hearts = config.get('hearts')
 
 const client = new Discord.Client()
