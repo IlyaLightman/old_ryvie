@@ -1,4 +1,4 @@
-const { create } = require('../player/playlists')
+const { create, add } = require('../player/playlists')
 
 // $pl <create/add/play/delete/clear> <private/public/empty> <title> <song/empty>
 
@@ -21,10 +21,14 @@ module.exports = {
 
 		switch (args[0]) {
 			case 'create':
-				await create(message, args[1])
+				// $pl create <private/public> <title>
+				if (!(args[1] === 'private' || args[1] === 'public')) return sendError(message)
+				await create(message, args[2], args[1])
 				break
 			case 'add':
-
+				// $pl add <title> <url/youtube title>
+				const request = args.filter((arg, index) => index > 1)
+				await add(message, args[1], request)
 				break
 			case 'play':
 
@@ -41,4 +45,8 @@ module.exports = {
 			default: break
 		}
 	}
+}
+
+const sendError = message => {
+	message.channel.send('Ошибка в аргументах команды')
 }

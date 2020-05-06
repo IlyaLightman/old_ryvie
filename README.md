@@ -21,7 +21,7 @@ There are commands of the bot
 
 ##### Music Playlists
 
-* **$pl** create <_private/public_> <_title_> - Create an empty playlist
+* **$pl** create <_private*/public_> <_title_> - Create an empty playlist
 * **$pl** add <_playlist title_> <_youtube link / title_>  - Add a song to the playlist
 * **$pl** play <_playlist title_> - Add all songs from the playlist in the queue
 * **$pl** a <_playlist title_> <_number_> - Add selected song in the queue
@@ -29,7 +29,10 @@ There are commands of the bot
 * **$pl** del <_playlist title_> <_number_> - Delete selected song from the playlist
 * **$pl** clear <_playlist title_> - Delete all songs from the playlist
 * **$pl** show <_playlist title_> - Shows you all songs and its numbers of the playlist
-* **$pl** list - Shows you all public and your private playlists
+* **$pl** list - Shows you all playlists
+
+All members are able to listen any playlists, include private,
+but only owner of the private playlist can add new songs in it.
 
 #### Fun
 

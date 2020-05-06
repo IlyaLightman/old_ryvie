@@ -18,25 +18,17 @@ class Playlist {
 			console.log(err)
 		}
 	}
+}
 
-	async addSong(url) {
-		try {
-			const playlist = this
-			playlist.songs.push(url)
-
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	async update() {
-		try {
-			const playlist = this
-			await axios.put(playlistUrl, playlist)
-		} catch (err) {
-			console.log(err)
-		}
+const update = async (id, playlist) => {
+	try {
+		const url = `${firebaseUrl}/music/playlists/${id}.json`
+		await axios.put(url, playlist)
+	} catch (err) {
+		console.log(err)
 	}
 }
 
-module.exports = Playlist
+module.exports = {
+	Playlist, update
+}
