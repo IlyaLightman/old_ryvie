@@ -70,9 +70,13 @@ const play = async (message, playlistTitle) => {
 
 		if (!playlist) return message.channel.send('Плейлист не найден')
 
-		playlist.songs.forEach((song, index) => {
-			a(message, playlistTitle, index)
-		})
+		async function addSongs(songs) {
+			for (const song of songs) {
+				await musicPlayer.add(message, song.url)
+			}
+		}
+
+		await addSongs(playlist.songs)
 	} catch (err) {
 		console.log(err)
 	}
