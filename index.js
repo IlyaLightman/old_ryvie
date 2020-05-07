@@ -38,7 +38,7 @@ process.on('unhandledRejection', error => {
 })
 
 client.on('message', message => {
-	if (!(message.content.startsWith(prefix) || message.author.bot)) return
+	if (!message.content.startsWith(prefix) || message.author.bot) return
 
 	const heart = Math.floor(Math.random() * 6)
 	message.react(hearts[heart]).then(() => {})

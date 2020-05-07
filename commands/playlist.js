@@ -1,4 +1,4 @@
-const { create, add } = require('../player/playlists')
+const { create, add, list } = require('../player/playlists')
 
 // $pl <create/add/play/delete/clear> <private/public/empty> <title> <song/empty>
 
@@ -34,7 +34,8 @@ module.exports = {
 
 				break
 			case 'list':
-
+				// $pl list
+				await list(message)
 				break
 			case 'delete':
 

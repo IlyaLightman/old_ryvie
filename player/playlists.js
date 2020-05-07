@@ -46,6 +46,19 @@ const add = async (message, playlistTitle, youtube) => {
 	}
 }
 
+const list = async message => {
+	try {
+		const data = (await axios.get(`${dburl}/music/playlists.json`)).data
+		message.channel.send('Список всех плейлистов')
+		Object.values(data).forEach((playlist, index) => {
+			message.channel.send(
+				`${index + 1}) `  + playlist.title + ` ${playlist.owner ? `   [${playlist.owner.name}]` : ''}`)
+		})
+	} catch (err) {
+		console.log(err)
+	}
+}
+
 const searchPlaylistIdByTitle = async title => {
 	try {
 		const data = (await axios.get(`${dburl}/music/playlists.json`)).data
@@ -63,5 +76,5 @@ const searchPlaylistIdByTitle = async title => {
 }
 
 module.exports = {
-	create, add
+	create, add, list
 }
