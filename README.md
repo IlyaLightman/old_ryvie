@@ -13,11 +13,11 @@ There are commands of the bot
 
 #### Music
 
-* **$add** <_youtube link / title_> - Add a music to the queue (or $a)
-* **$queue** - Shows you the current queue (or $q)
-* **$skip** - Skips the current song (or $s)
-* **$clear** - Clears the queue (or $c)
-* **$play** <_number_> - Plays the selected music (or $p)
+* **$add** <_youtube link / title_> - Add a music to the queue (or **$a**)
+* **$queue** - Shows you the current queue (or **$q**)
+* **$skip** - Skips the current song (or **$s**)
+* **$clear** - Clears the queue (or **$c**)
+* **$play** <_number_> - Plays the selected music (or **$p**)
 
 ##### Music Playlists
 
@@ -38,8 +38,8 @@ but only owner of the private playlist can add new songs in it.
 
 * **$roulette** <_chance (0 - 100%)_> - Bans you with the selected chance ($roulette 25)
 * **$roll** <_interval (x-y) / dice (XdY)_> - Rolls dices ($dice 2d20)
+* **$**<_math expression_> - Calculates a mathematical expression ($2+2)
 
 ---
 
 ![Ryvie for Discord](https://i.ibb.co/DgHLfFx/bor-for-discord.png "Bot for Discord")
-

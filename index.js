@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const config = require('config')
 const fs = require('fs')
 const chalk = require('chalk')
+const calc = require('./utils/calculator')
 
 const token = config.get('DISCORD_TOKEN')
 const prefix = config.get('prefix') // $
@@ -39,6 +40,9 @@ process.on('unhandledRejection', error => {
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return
+
+	const toCalc = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '+']
+	if (toCalc.includes(message.content[1])) return calc(message)
 
 	const heart = Math.floor(Math.random() * 6)
 	message.react(hearts[heart]).then(() => {})
