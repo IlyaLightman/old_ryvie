@@ -10,6 +10,7 @@ There are commands of the bot
 
 * **$ping** - Sends you "Pong"
 * **$help** <_command_> - Sends you a message about any command
+* **$vote** <_seconds_> <_question_> - Creates a simple vote
 
 #### Music
 
