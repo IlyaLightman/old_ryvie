@@ -44,7 +44,7 @@ const add = async (message, youtube) => {
 	} else {
 		serverQueue.songs.push(song)
 		// console.log(serverQueue.songs)
-		return message.channel.send(`${song.title} добавлено в очередь!`)
+		return message.channel.send(`**${song.title}** *добавлено в очередь!*`)
 	}
 }
 
@@ -71,16 +71,16 @@ const playStream = (message, song) => {
 		})
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5)
 
-	const msg = `${song.title} is playing now`
+	const msg = `**${song.title}** *играет сейчас*`
 	message.channel.send(msg)
 }
 
 const skip = message => {
 	setPlayer(message)
 	if (!message.member.voice.channel) return message.channel.send(
-		'Вы должны находиться в голосовом канале')
+		'*Вы должны находиться в голосовом канале*')
 	if (!serverQueue) return message.channel.send(
-		'Нечего скипать...'
+		'*Нечего скипать...*'
 	)
 
 	serverQueue.connection.dispatcher.emit('end')
@@ -89,7 +89,7 @@ const skip = message => {
 const clear = message => {
 	setPlayer(message)
 	if (!message.member.voice.channel) return message.channel.send(
-		'Вы должны находиться в голосовом канале')
+		'*Вы должны находиться в голосовом канале*')
 	serverQueue.songs = []
 
 	serverQueue.connection.dispatcher.emit('end')
@@ -98,9 +98,9 @@ const clear = message => {
 const play = (message, number) => {
 	setPlayer(message)
 
-	if (!serverQueue.songs[number]) return message.channel.send('В очереди нет такой песни')
+	if (!serverQueue.songs[number]) return message.channel.send('*В очереди нет такой песни*')
 
-	message.channel.send(`Выбранная песня: ${serverQueue.songs[number - 1].title}`)
+	message.channel.send(`*Выбранная песня:* **${serverQueue.songs[number - 1].title}**`)
 
 	const setSong = serverQueue.songs[number - 1]
 	playStream(message, setSong)
@@ -108,12 +108,12 @@ const play = (message, number) => {
 
 const showQueue = message => {
 	setPlayer(message)
-	let msg = 'Очередь прослушивания: '
+	let msg = '***Очередь прослушивания: ***'
 
-	if (!serverQueue) return message.channel.send('Нечего слушать...')
+	if (!serverQueue) return message.channel.send('*Нечего слушать...*')
 
 	serverQueue.songs.forEach((song, index) => {
-		msg += `\n${index + 1}) [${normalizeSeconds(song.length)}]   ${song.title}`
+		msg += `\n**${index + 1})** [*${normalizeSeconds(song.length)}*]   ${song.title}`
 	})
 	message.channel.send(msg)
 }
