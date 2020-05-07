@@ -90,6 +90,62 @@ const a = async (message, playlistTitle, number) => {
 	}
 }
 
+const show = async (message, playlistTitle) => {
+	try {
+		const { playlist } = await searchPlaylistIdByTitle(playlistTitle)
+		if (!playlist) return message.channel.send('Плейлист не найден')
+		if (playlist.songs.length === 0) return message.channel.send('Плейлист пуст')
+
+		message.channel.send(`Плейлист ${playlistTitle}: `)
+		playlist.songs.forEach((song, index) => {
+			message.channel.send(`${index + 1}) ${song.title}`)
+		})
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+const clear = async (message, playlistTitle) => {
+	try {
+		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
+		if (!playlist) return message.channel.send('Плейлист не найден')
+
+		playlist.songs = []
+		await Playlist.update(playlistId, playlist)
+
+		message.channel.send(`Плейлист ${playlistTitle} полностью очищен`)
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+const pl_delete = async (message, playlistTitle) => {
+	try {
+		const { playlistId } = await searchPlaylistIdByTitle(playlistTitle)
+		if (!playlistId) return message.channel.send('Плейлист не найден')
+
+		await axios.delete(`${dburl}/music/playlists/${playlistId}.json`)
+
+		message.channel.send(`Плейлист ${playlistTitle} удалён`)
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+const del = async (message, playlistTitle, number) => {
+	try {
+		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
+		if (!playlist) return message.channel.send('Плейлист не найден')
+
+		playlist.songs.splice(number - 1, 1)
+		await Playlist.update(playlistId, playlist)
+
+		message.channel.send(`Плейлист ${playlistTitle} обновлён`)
+	} catch (err) {
+		console.log(err)
+	}
+}
+
 const searchPlaylistIdByTitle = async title => {
 	try {
 		const data = (await axios.get(`${dburl}/music/playlists.json`)).data
@@ -107,5 +163,5 @@ const searchPlaylistIdByTitle = async title => {
 }
 
 module.exports = {
-	create, add, list, a, play
+	create, add, list, a, play, show, clear, pl_delete, del
 }
