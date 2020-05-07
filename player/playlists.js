@@ -33,6 +33,8 @@ const add = async (message, playlistTitle, youtube) => {
 		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
 
 		if (!playlist) return message.channel.send('Плейлист не найден')
+		if (!isOwnerOfPlaylist(message, playlist)) return message.channel.send(
+			'Вы не владелец плейлиста')
 
 		if (!playlist.songs) {
 			playlist.songs = []
@@ -109,6 +111,8 @@ const clear = async (message, playlistTitle) => {
 	try {
 		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
 		if (!playlist) return message.channel.send('Плейлист не найден')
+		if (!isOwnerOfPlaylist(message, playlist)) return message.channel.send(
+			'Вы не владелец плейлиста')
 
 		playlist.songs = []
 		await Playlist.update(playlistId, playlist)
@@ -121,8 +125,10 @@ const clear = async (message, playlistTitle) => {
 
 const pl_delete = async (message, playlistTitle) => {
 	try {
-		const { playlistId } = await searchPlaylistIdByTitle(playlistTitle)
+		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
 		if (!playlistId) return message.channel.send('Плейлист не найден')
+		if (!isOwnerOfPlaylist(message, playlist)) return message.channel.send(
+			'Вы не владелец плейлиста')
 
 		await axios.delete(`${dburl}/music/playlists/${playlistId}.json`)
 
@@ -136,6 +142,8 @@ const del = async (message, playlistTitle, number) => {
 	try {
 		const { playlistId, playlist } = await searchPlaylistIdByTitle(playlistTitle)
 		if (!playlist) return message.channel.send('Плейлист не найден')
+		if (!isOwnerOfPlaylist(message, playlist)) return message.channel.send(
+			'Вы не владелец плейлиста')
 
 		playlist.songs.splice(number - 1, 1)
 		await Playlist.update(playlistId, playlist)
@@ -160,6 +168,13 @@ const searchPlaylistIdByTitle = async title => {
 	} catch (err) {
 		console.log(err)
 	}
+}
+
+const isOwnerOfPlaylist = (message, playlist) => {
+	if (!playlist.owner) return true
+
+	const id = message.author.id
+	return id === playlist.owner.id
 }
 
 module.exports = {
