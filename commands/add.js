@@ -23,7 +23,7 @@ module.exports = {
 		// 		})
 		// } else url = args[0]
 
-		const url = await youtubeSearcher(args).url
+		const url = (await youtubeSearcher(args)).url
 
 		await add(message, url)
 	}

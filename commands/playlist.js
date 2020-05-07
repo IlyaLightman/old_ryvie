@@ -1,4 +1,4 @@
-const { create, add, list } = require('../player/playlists')
+const { create, add, list, a, play } = require('../player/playlists')
 
 // $pl <create/add/play/delete/clear> <private/public/empty> <title> <song/empty>
 
@@ -6,7 +6,7 @@ const { create, add, list } = require('../player/playlists')
 // $pl list
 // $pl add NewPlaylist1 TheBestSongInTheWorld
 
-const validateCommands = ['create', 'add', 'play', 'list', 'delete', 'clear']
+const validateCommands = ['create', 'add', 'play', 'list', 'delete', 'clear', 'a']
 
 module.exports = {
 	name: 'playlist',
@@ -31,7 +31,12 @@ module.exports = {
 				await add(message, args[1], request)
 				break
 			case 'play':
-
+				// $pl play <title>
+				await play(message, args[1])
+				break
+			case 'a':
+				// $pl a <title> <number>
+				await a(message, args[1], args[2])
 				break
 			case 'list':
 				// $pl list
