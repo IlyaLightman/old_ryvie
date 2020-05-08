@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 require('dotenv').config()
 const fs = require('fs')
-const chalk = require('chalk')
+// const chalk = require('chalk')
 const calc = require('./utils/calculator')
 
 const token = process.env.DISCORD_TOKEN
@@ -22,12 +22,14 @@ commandFiles.forEach(file => {
 
 let commands = ''
 client.commands.forEach(command => commands += `${command.name} `)
-console.log(chalk.bgBlueBright.bold(commands))
+// console.log(chalk.bgBlueBright.bold(commands))
+console.log(commands)
 
 const cooldowns = new Discord.Collection()
 
 client.once('ready', () => {
-	console.log(chalk.magenta('Ryvie is ready!'))
+	// console.log(chalk.magenta('Ryvie is ready!'))
+	console.log('Ryvie is ready!')
 })
 
 client.on('shardError', error => {
@@ -107,4 +109,5 @@ client.on('message', message => {
 	}
 })
 
-client.login(token).then(() => console.log(chalk.blue('Ryvie is here!')))
+// client.login(token).then(() => console.log(chalk.blue('Ryvie is here!')))
+client.login(token).then(() => console.log('Ryvie is here!'))
