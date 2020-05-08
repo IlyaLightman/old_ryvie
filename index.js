@@ -1,12 +1,12 @@
 const Discord = require('discord.js')
-const config = require('config')
+require('dotenv').config()
 const fs = require('fs')
 const chalk = require('chalk')
 const calc = require('./utils/calculator')
 
-const token = config.get('DISCORD_TOKEN')
-const prefix = config.get('prefix') // $
-const hearts = config.get('hearts')
+const token = process.env.DISCORD_TOKEN
+const prefix = process.env.prefix
+const hearts = ["\uD83D\uDC9A", "\uD83D\uDC9B", "\uD83D\uDC99", "\uD83D\uDC9C", "❤", "\uD83E\uDDE1"]
 
 const client = new Discord.Client()
 client.commands = new Discord.Collection()

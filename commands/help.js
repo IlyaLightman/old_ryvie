@@ -1,5 +1,4 @@
-const config = require('config')
-const prefix = config.get('prefix')
+const prefix = process.env.prefix
 
 module.exports = {
 	name: 'help',

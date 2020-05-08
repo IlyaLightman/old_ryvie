@@ -1,6 +1,6 @@
 const axios = require('axios')
-const config = require('config')
-const dburl = config.get('FIREBASE')
+// const dburl = config.get('FIREBASE')
+const dburl = process.env.FIREBASE
 const musicPlayer = require('../player/music')
 const youtubeSearcher = require('../utils/youtubeSearcher')
 const Playlist = require('../models/Playlist')

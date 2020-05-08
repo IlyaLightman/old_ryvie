@@ -1,6 +1,6 @@
 const axios = require('axios')
-const config = require('config')
-const firebaseUrl = config.get('FIREBASE')
+// const firebaseUrl = config.get('FIREBASE')
+const firebaseUrl = process.env.FIREBASE
 const playlistUrl = `${firebaseUrl}/music/playlists.json`
 
 class Playlist {
