@@ -5,7 +5,7 @@ const musicPlayer = require('../player/music')
 const youtubeSearcher = require('../utils/youtubeSearcher')
 const Playlist = require('../models/Playlist')
 
-const create = async (message, title, access) => {
+const create = async (message, access, title) => {
 	try {
 		let owner = null
 		if (access === 'private') {

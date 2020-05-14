@@ -23,7 +23,8 @@ module.exports = {
 			case 'create':
 				// $pl create <private/public> <title>
 				if (!(args[1] === 'private' || args[1] === 'public')) return sendError(message)
-				await create(message, args[2], args[1])
+				const type = args.push()
+				await create(message, type, args[2])
 				break
 			case 'add':
 				// $pl add <title> <url/youtube title>
