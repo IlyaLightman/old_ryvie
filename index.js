@@ -1,8 +1,11 @@
+import mainReducer from './state/reducers/main'
+
 const Discord = require('discord.js')
 require('dotenv').config()
 const fs = require('fs')
 // const chalk = require('chalk')
 const calc = require('./utils/calculator')
+const { createStore } = require('./state/store')
 
 const token = process.env.DISCORD_TOKEN
 const prefix = process.env.prefix
@@ -10,6 +13,11 @@ const hearts = ["\uD83D\uDC9A", "\uD83D\uDC9B", "\uD83D\uDC99", "\uD83D\uDC9C", 
 
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
+
+const store = createStore(mainReducer)
+store.subscribe(() => {
+	console.log(store.getState())
+})
 
 const commandFiles = fs.readdirSync('./commands').filter(file => {
 	return file.endsWith('.js')
@@ -102,7 +110,7 @@ client.on('message', message => {
 	}, cooldownAmount)
 
 	try {
-		command.execute(message, args)
+		command.execute(message, args, store)
 	} catch (err) {
 		console.error(err)
 		message.reply(`Произошла ошибка`).then(console.log)

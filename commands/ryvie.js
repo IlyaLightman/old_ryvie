@@ -4,7 +4,7 @@ module.exports = {
 	name: 'ryvie',
 	description: 'For development',
 	cooldown: 10,
-	execute(message, args) {
+	execute(message, args, store) {
 		message.channel.send(message.author.id)
 		const admins = process.env.admins.split('-')
 
@@ -13,6 +13,8 @@ module.exports = {
 		// $ryvie chat-filter enable
 		const command = args[0]
 		const action = args[1]
+
+		mainReducer()
 
 		switch (command) {
 			case 'chat-filter':
