@@ -41,6 +41,10 @@ but only owner of the private playlist can add new songs in it.
 * **$roll** <_interval (x-y) / dice (XdY)_> - Rolls dices ($dice 2d20)
 * **$**<_math expression_> - Calculates a mathematical expression ($2+2)
 
+#### System
+
+* **$ryvie** <_chat-filter_> <_enable/disable_> - Chat filter of Ryvie
+
 ---
 
 ![Ryvie for Discord](https://i.ibb.co/DgHLfFx/bor-for-discord.png "Bot for Discord")

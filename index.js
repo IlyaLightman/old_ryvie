@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 require('dotenv').config()
 const fs = require('fs')
-// const chalk = require('chalk')
 const calc = require('./utils/calculator')
 const mainReducer = require('./state/reducers/main')
 const createStore = require('./state/store')
@@ -29,13 +28,11 @@ commandFiles.forEach(file => {
 
 let commands = ''
 client.commands.forEach(command => commands += `${command.name} `)
-// console.log(chalk.bgBlueBright.bold(commands))
 console.log(commands)
 
 const cooldowns = new Discord.Collection()
 
 client.once('ready', () => {
-	// console.log(chalk.magenta('Ryvie is ready!'))
 	console.log('Ryvie is ready!')
 })
 

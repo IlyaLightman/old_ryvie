@@ -24,7 +24,5 @@ module.exports = {
 				break
 			default: store.dispatch({ type: 'checker' })
 		}
-
-		console.log(admins[0])
 	}
 }
