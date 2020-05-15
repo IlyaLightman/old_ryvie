@@ -14,3 +14,7 @@ const disableChatfilter = () => {
 		type: CHATFILTER_DISABLE
 	}
 }
+
+module.exports = {
+	enableChatfilter, disableChatfilter
+}

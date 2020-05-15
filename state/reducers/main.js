@@ -7,7 +7,7 @@ const initialState = {
 	chatFilter: false
 }
 
-export default function mainReducer(state = initialState, action) {
+function mainReducer(state = initialState, action) {
 	switch (action.type) {
 		case CHATFILTER_ENABLE:
 			return {
@@ -20,3 +20,5 @@ export default function mainReducer(state = initialState, action) {
 		default: return state
 	}
 }
+
+module.exports = mainReducer

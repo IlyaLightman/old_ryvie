@@ -1,11 +1,10 @@
-import mainReducer from './state/reducers/main'
-
 const Discord = require('discord.js')
 require('dotenv').config()
 const fs = require('fs')
 // const chalk = require('chalk')
 const calc = require('./utils/calculator')
-const { createStore } = require('./state/store')
+const mainReducer = require('./state/reducers/main')
+const createStore = require('./state/store')
 
 const token = process.env.DISCORD_TOKEN
 const prefix = process.env.prefix

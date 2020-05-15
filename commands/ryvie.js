@@ -1,4 +1,4 @@
-import mainReducer from '../state/reducers/main'
+const { enableChatfilter, disableChatfilter } = require('../state/actions/main')
 
 module.exports = {
 	name: 'ryvie',
@@ -14,12 +14,15 @@ module.exports = {
 		const command = args[0]
 		const action = args[1]
 
-		mainReducer()
-
 		switch (command) {
 			case 'chat-filter':
-
+				if (action === 'enable') {
+					store.dispatch(enableChatfilter())
+				} else {
+					store.dispatch(disableChatfilter())
+				}
 				break
+			default: store.dispatch({ type: 'checker' })
 		}
 
 		console.log(admins[0])
