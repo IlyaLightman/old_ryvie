@@ -4,6 +4,7 @@ const fs = require('fs')
 const calc = require('./utils/calculator')
 const mainReducer = require('./state/reducers/main')
 const createStore = require('./state/store')
+const { messageFilter } = require('./filters/chatFilter')
 
 const token = process.env.DISCORD_TOKEN
 const prefix = process.env.prefix
@@ -45,6 +46,10 @@ process.on('unhandledRejection', error => {
 })
 
 client.on('message', message => {
+	if (store.getState().chatFilter) {
+		messageFilter(message)
+	}
+
 	if (!message.content.startsWith(prefix) || message.author.bot) return
 
 	const toCalc = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '+']
