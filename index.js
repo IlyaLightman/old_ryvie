@@ -8,15 +8,19 @@ const { messageFilter } = require('./filters/chatFilter')
 
 const token = process.env.DISCORD_TOKEN
 const prefix = process.env.prefix
-const hearts = ["\uD83D\uDC9A", "\uD83D\uDC9B", "\uD83D\uDC99", "\uD83D\uDC9C", "❤", "\uD83E\uDDE1"]
-
-const client = new Discord.Client()
-client.commands = new Discord.Collection()
+const hearts = [
+	"\uD83D\uDC9A", "\uD83D\uDC9B", "\uD83D\uDC99",
+	"\uD83D\uDC9C", "❤", "\uD83E\uDDE1"]
 
 const store = createStore(mainReducer)
+store.dispatch('')
 store.subscribe(() => {
 	console.log(store.getState())
 })
+console.log(store, store.getState())
+
+const client = new Discord.Client()
+client.commands = new Discord.Collection()
 
 const commandFiles = fs.readdirSync('./commands').filter(file => {
 	return file.endsWith('.js')
@@ -46,6 +50,7 @@ process.on('unhandledRejection', error => {
 })
 
 client.on('message', message => {
+	console.log('hi', store.getState())
 	if (store.getState().chatFilter) {
 		messageFilter(message)
 	}
@@ -101,7 +106,8 @@ client.on('message', message => {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000
 			return message.reply(
-				`Подожди ещё ${timeLeft.toFixed(1)} секунд перед использованием команды вновь`)
+				`Подожди ещё ${timeLeft.toFixed(1)}
+				 секунд перед использованием команды вновь`)
 		}
 	}
 
